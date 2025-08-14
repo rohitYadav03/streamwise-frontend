@@ -1,8 +1,14 @@
 import type React from "react";
-
+import Header from "./Header";
 
 const Browse : React.FC = () => {
-    return <h1>Browsr</h1>
+    return <div
+    className=" w-full h-screen"
+    >
+<Header />
+
+<h1 className="">Browsr</h1>
+    </div> 
 }
 
 export default Browse;
