@@ -18,7 +18,6 @@ useEffect(() => {
       setLoading(true);
       
       try {
-        // Check if user has valid JWT cookie
         const response = await axios.get(
           'http://localhost:3000/api/auth/profile',
           { withCredentials: true }
@@ -32,7 +31,6 @@ useEffect(() => {
       } catch (error) {
         console.log('User is not authenticated');
                 removeUser();
-        
       } finally {
         setLoading(false);
       }

@@ -1,13 +1,16 @@
 import type React from "react";
 import Header from "./Header";
-import axios from "axios";
-import { useEffect } from "react";
-
+import useMovieStore from "../store/movieStore";
 import useUserStore from "../store/userStore";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Backgroundvideo from "./BackgroundvideoSection/Backgroundvideo";
+import MovieCard from "./BackgroundvideoSection/MovieCard";
 
 const Browse : React.FC = () => {
-const navigate = useNavigate()
+  const {allMovie , popularMovie , topRated, upcoming} = useMovieStore();
+const navigate = useNavigate();
+const {fetchNowPlayingMovie ,backgroundMovie} = useMovieStore();
   const {user} = useUserStore();
 
   if(!user){
@@ -15,27 +18,35 @@ const navigate = useNavigate()
     return;
   }
 
-    const fetchNowPlayingMovies = async() => {
-  const movieResponse = await axios.get("https://api.themoviedb.org/3/movie/now_playing", {
-    headers : {
-accept : "application/json",
-Authorization : `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-  }
-})
-console.log(movieResponse.data);
-    }
+    // fetch data when component loads
+  useEffect(() => {
+ fetchNowPlayingMovie();
+  },[])
 
-    useEffect(() => {
-    fetchNowPlayingMovies()
-},[])
-
-    return <div
-    className=" w-full h-screen"
-    >
+   return(
+<div className="w-full min-h-screen bg-black">
 <Header />
+{backgroundMovie && <Backgroundvideo />}  
 
-<h1 className="">Browsr</h1>
-    </div> 
+
+<div className=" relative z-10 -mt-40 pb-16">
+
+<div className="bg-gradient-to-b from-transparent via-black/50 to-black px-4 md:px-12 lg:px-16 pt-8 pb-6">
+  <MovieCard title="🎬 Now Playing" allMovie={allMovie} />
+</div>
+
+
+<div className="px-4 md:px-12 lg:px-16 space-y-8">
+
+          <MovieCard title="🔥Popular Movie" allMovie={popularMovie} />
+          <MovieCard title="⭐ Top Rated" allMovie={topRated} />
+          <MovieCard title="⏳ Upcoming" allMovie={upcoming} />
+       
+
+</div>
+</div>
+  </div> 
+  );
 }
 
 export default Browse;

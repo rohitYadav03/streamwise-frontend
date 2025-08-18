@@ -5,7 +5,6 @@ import axios from "axios";
 
 const Header: React.FC = () => {
   const location = useLocation();
-  // Get user from store 
   const user = useUserStore((state) => state.user);
   const { removeUser } = useUserStore();
   const navigate = useNavigate();
@@ -38,7 +37,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className=" top-0 left-0 w-full p-5">
+    <div className="absolute top-0 left-0 w-full p-5 z-10 text-white">
       <div className=" flex justify-between items-center mx-6">
         <div className=" w-32 h-13 rounded flex items-center justify-center mx-9">
           <span 

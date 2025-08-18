@@ -42,13 +42,8 @@ try {
     const response = await axios.post("http://localhost:3000/api/auth/login", 
       {email , password}, 
       {withCredentials : true});
-console.log("after api login");
-
-      console.log("galat pasword 1", response);
       
-      if (!response) {
-        console.log("galat pasword 2", response);
-      }
+          await new Promise(resolve => setTimeout(resolve, 15));
 
       console.log("Login ho gya ",response );
       
