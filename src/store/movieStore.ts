@@ -21,9 +21,10 @@ setBackgroundMovie : (movie : string) => set({backgroundMovie : movie}),
 
 
 fetchNowPlayingMovie : async() => {
- 
+ console.log("TMDB Token:", import.meta.env.VITE_ACCESS_TOKEN);
+
 const movieResponse = await axios.get(
-    "https://api.themoviedb.org/3/movie/now_playing?language=hi&page=1&region=IN",
+    "https://api.themoviedb.org/3/movie/now_playing?page=1",
     {
         headers : {
             accept : "application/json",
